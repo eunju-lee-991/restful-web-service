@@ -35,7 +35,6 @@ public class AdminUserController {
         MappingJacksonValue mapping = new MappingJacksonValue(users);
         mapping.setFilters(filters);
 
-
         return mapping;
     }
 
@@ -74,16 +73,16 @@ public class AdminUserController {
             throw new UserNotFoundException(String.format("ID[%s] not found", id));
         }
 
-        UserV2 user2 = new UserV2();
-        BeanUtils.copyProperties(user, user2); // bean의 프로퍼티 복사
-        user2.setGrade("VIP");
+        UserV2 userV2 = new UserV2();
+        BeanUtils.copyProperties(user, userV2); // bean의 프로퍼티 복사
+        userV2.setGrade("VIP");
 
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
                 .filterOutAllExcept("id", "name", "joinDate", "grade"); // 포함시키려는 값
 
         FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfoV2",filter);
 
-        MappingJacksonValue mapping = new MappingJacksonValue(user2);
+        MappingJacksonValue mapping = new MappingJacksonValue(userV2);
         mapping.setFilters(filters);
 
         return mapping;
